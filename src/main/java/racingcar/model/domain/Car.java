@@ -9,13 +9,20 @@ public class Car {
     private static final int MAXIMUM_NAME_LENGTH = 5;
 
     public Car(String name) {
-        String trimmedName = name.trim();
-        validateName(trimmedName);
-        this.name = trimmedName;
+        String refinedName = refine(name);
+        validateName(refinedName);
+        this.name = refinedName;
     }
 
     public String getName() {
         return name;
+    }
+
+    private String refine(String name) {
+        if (name == null) {
+            return name;
+        }
+        return name.trim();
     }
 
     private void validateName(String name) {
