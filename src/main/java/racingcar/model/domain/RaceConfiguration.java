@@ -17,6 +17,7 @@ public class RaceConfiguration {
     public RaceConfiguration(List<Car> cars, int rounds) {
         validateCarList(cars);
         this.cars = cars;
+        validateRounds(rounds);
         this.rounds = rounds;
     }
 
@@ -46,5 +47,12 @@ public class RaceConfiguration {
         }
         Set<String> carNamesWithNoDuplication = new HashSet<>(carNames);
         return (carNames.size() != carNamesWithNoDuplication.size());
+    }
+
+    private void validateRounds(int rounds) {
+        boolean isNegativeOrZero = (rounds <= 0);
+        if (isNegativeOrZero) {
+            throw new IllegalArgumentException(ErrorMessage.ROUNDS_NOT_POSITIVE.getMessage());
+        }
     }
 }

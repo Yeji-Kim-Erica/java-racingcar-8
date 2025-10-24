@@ -20,9 +20,10 @@ public class RacingGameController {
     }
 
     public void run() {
-        outputView.printCarNamePrompt();
+        outputView.printCarNamesPrompt();
         String carNames = inputView.readCarNames();
-        String gameRounds = "1";
+        outputView.printGameRoundsPrompt();
+        String gameRounds = inputView.readGameRounds();
         RaceConfiguration configuration = configService.createRaceConfiguration(carNames, gameRounds);
     }
 

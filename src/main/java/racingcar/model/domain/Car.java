@@ -9,7 +9,7 @@ public class Car {
     private static final int MAXIMUM_NAME_LENGTH = 5;
 
     public Car(String name) {
-        String refinedName = refine(name);
+        String refinedName = refineName(name);
         validateName(refinedName);
         this.name = refinedName;
     }
@@ -18,7 +18,7 @@ public class Car {
         return name;
     }
 
-    private String refine(String name) {
+    private String refineName(String name) {
         if (name == null) {
             return name;
         }
@@ -26,9 +26,9 @@ public class Car {
     }
 
     private void validateName(String name) {
-        boolean isNullOrEmpty = (name == null || name.isEmpty());
-        if (isNullOrEmpty) {
-            throw new IllegalArgumentException(ErrorMessage.CAR_NAME_NULL_OR_EMPTY.getMessage());
+        boolean isNullOrBlank = (name == null || name.isBlank());
+        if (isNullOrBlank) {
+            throw new IllegalArgumentException(ErrorMessage.CAR_NAME_NULL_OR_BLANK.getMessage());
         }
 
         boolean isNameLengthOverMaximum = (name.length() > MAXIMUM_NAME_LENGTH);

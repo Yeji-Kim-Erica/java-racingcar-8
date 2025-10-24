@@ -9,4 +9,8 @@ public class InputView {
     public String readCarNames() {
         return Console.readLine();
     }
+
+    public String readGameRounds() {
+        return Console.readLine();
+    }
 }
