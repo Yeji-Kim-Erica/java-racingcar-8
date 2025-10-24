@@ -44,7 +44,7 @@ ___
 
 ### View
 - `InputView`: 경기 설정 **입력**
-- `OutputView`: 차수별 경기 결과, 최종 우승자 **출력**
+- `OutputView`: 입력 안내 문구, 차수별 경기 결과, 최종 우승자 **출력**
 
 ### Model
 - **Service**
