@@ -47,9 +47,12 @@ ___
 
 ### Model
 - **Service**
-  - `ConfigService`: 경기 설정 관련 로직
-  - `RaceService`: 경기 실행 관련 로직 (라운드 진행, 최종 우승자 선출 등)
+  - `ConfigService`: 경기 설정 흐름 조율
+  - `RaceService`: 경기 실행 흐름 조율
 - **Domain**
-  - `Car`: 자동차 이름 유효성 검사, 자동차 이동
-  - `RaceConfiguration`: 자동차 수, 자동차 이름 중복 여부, 경기 시도 횟수 유효성 검사
+  - `RaceConfiguration`: 유효성이 검증된 **경기 설정값** 보관
+  - `Car`: 자동차의 **상태** 정보, **자동차 이동**
+  - `Race`: 경기의 **상태** 정보, **경기 진행**
+  - `MoveStrategy` (Interface): **자동차 전진 조건** 추상화 (TDD를 위함)
+  - `RandomMoveStrategy` (Implementation): 자동차 전진 조건의 **실제 구현체**
   - `ErrorMessage`: 예외 메시지 관리
