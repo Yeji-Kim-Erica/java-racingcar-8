@@ -56,3 +56,5 @@ ___
   - `MoveStrategy` (Interface): **자동차 전진 조건** 추상화 (TDD를 위함)
   - `RandomMoveStrategy` (Implementation): 자동차 전진 조건의 **실제 구현체**
   - `ErrorMessage`: 예외 메시지 관리
+- **DTO**
+  - `RoundResult`: 자동차들의 **차수별 이동 결과 데이터 저장**
