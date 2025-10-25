@@ -49,7 +49,6 @@ public class RaceServiceTest {
             assertThat(cars)
                     .extracting(Car::getPosition)
                     .containsExactly(3, 3);
-
         }
     }
 }

@@ -2,10 +2,13 @@ package racingcar.controller;
 
 import racingcar.model.domain.Race;
 import racingcar.model.domain.RaceConfiguration;
+import racingcar.model.dto.RoundResult;
 import racingcar.model.service.ConfigService;
 import racingcar.model.service.RaceService;
 import racingcar.view.InputView;
 import racingcar.view.OutputView;
+
+import java.util.List;
 
 /**
  * 자동차 경주 프로그램의 전체 흐름을 담당하는 클래스
@@ -33,6 +36,9 @@ public class RacingGameController {
 
         RaceConfiguration configuration = configService.createRaceConfiguration(carNames, gameRounds);
         Race race = raceService.proceedRace(configuration);
+
+        List<RoundResult> raceResult = raceService.getRaceResult(race);
+        outputView.printRaceResult(raceResult);
     }
 
 }

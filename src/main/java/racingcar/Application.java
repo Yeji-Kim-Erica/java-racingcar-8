@@ -12,9 +12,11 @@ public class Application {
     public static void main(String[] args) {
         InputView inputView = new InputView();
         OutputView outputView = new OutputView();
+
         ConfigService configService = new ConfigService();
         MoveStrategy moveStrategy = new RandomMoveStrategy();
         RaceService raceService = new RaceService(moveStrategy);
+
         RacingGameController controller = new RacingGameController(inputView, outputView, configService, raceService);
 
         controller.run();

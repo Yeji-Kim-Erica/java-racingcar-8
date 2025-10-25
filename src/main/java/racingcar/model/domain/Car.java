@@ -15,6 +15,13 @@ public class Car {
         this.name = refinedName;
     }
 
+    public Car(String name, int position) {
+        String refinedName = refineName(name);
+        validateName(refinedName);
+        this.name = refinedName;
+        this.position = position;
+    }
+
     public String getName() {
         return name;
     }
@@ -23,8 +30,10 @@ public class Car {
         return position;
     }
 
-    public void move() {
-        position++;
+    public void tryMove(MoveStrategy moveStrategy) {
+        if (moveStrategy.isMoveable()) {
+            position++;
+        }
     }
 
     private String refineName(String name) {

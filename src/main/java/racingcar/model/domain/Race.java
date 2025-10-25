@@ -1,5 +1,7 @@
 package racingcar.model.domain;
 
+import racingcar.model.dto.RoundResult;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,29 +12,36 @@ public class Race {
     private final List<Car> cars;
     private final int finalRound;
     private final MoveStrategy moveStrategy;
+    private final List<RoundResult> roundResults;
 
     public Race(RaceConfiguration configuration, MoveStrategy moveStrategy) {
         this.cars = configuration.getCars();
         this.finalRound = configuration.getRounds();
         this.moveStrategy = moveStrategy;
+        roundResults = new ArrayList<>();
     }
 
     public List<Car> getCars() {
         return new ArrayList<>(cars);
     }
 
+    public List<RoundResult> getRoundResults() {
+        return new ArrayList<>(roundResults);
+    }
+
     public void proceed() {
         for (int i = 1; i <= finalRound; i++) {
-            proceedOneRound();
+            RoundResult roundResult = proceedOneRound();
+            roundResults.add(roundResult);
         }
     }
 
-    private void proceedOneRound() {
+    private RoundResult proceedOneRound() {
+        RoundResult roundResult = new RoundResult();
         for (Car car : cars) {
-            boolean isMovingForward = moveStrategy.isMoveable();
-            if (isMovingForward) {
-                car.move();
-            }
+            car.tryMove(moveStrategy);
+            roundResult.add(car);
         }
+        return roundResult;
     }
 }

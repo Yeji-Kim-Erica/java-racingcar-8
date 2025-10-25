@@ -26,6 +26,25 @@ public class CarTest {
             // then
             assertThat(car.getName()).isEqualTo(name.trim());
         }
+        
+        @Test
+        @DisplayName("자동차 전진")
+        void carMovesForward() {
+            // given
+            Car car = new Car("pobi");
+            MoveStrategy moveStrategy = new MoveStrategy() {
+                @Override
+                public boolean isMoveable() {
+                    return true;
+                }
+            };
+
+            // when
+            car.tryMove(moveStrategy);
+
+            // then
+            assertThat(car.getPosition()).isEqualTo(1);
+        }
     }
 
     @Nested

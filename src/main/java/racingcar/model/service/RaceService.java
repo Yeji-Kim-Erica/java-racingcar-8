@@ -1,6 +1,10 @@
 package racingcar.model.service;
 
 import racingcar.model.domain.*;
+import racingcar.model.dto.RoundResult;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 경기 실행 관련 로직을 담당하는 클래스
@@ -17,5 +21,9 @@ public class RaceService {
         race.proceed();
 
         return race;
+    }
+
+    public List<RoundResult> getRaceResult(Race race) {
+        return race.getRoundResults();
     }
 }
