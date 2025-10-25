@@ -15,6 +15,8 @@ public class OutputView {
     private static final String RACE_RESULT_INITIAL_LINE = "실행 결과";
     private static final String ROUND_RESULT_FORMAT = "%s : %s\n";
     private static final String CAR_DISTANCE_PER_ROUND = "-";
+    private static final String WINNER_FORMAT = "최종 우승자 : %s";
+    private static final String WINNER_DELIMITER = ", ";
 
     public void printCarNamesPrompt() {
         System.out.println(CAR_NAME_INPUT_PROMPT);
@@ -32,7 +34,12 @@ public class OutputView {
         }
     }
 
-    public void printRoundResult(RoundResult roundResult) {
+    public void printWinner(List<String> winners) {
+        String winner = alignNameOfWinners(winners);
+        System.out.printf(WINNER_FORMAT, winner);
+    }
+
+    private void printRoundResult(RoundResult roundResult) {
         Map<String, Integer> resultMap = roundResult.getCarPositions();
         for (Entry<String, Integer> entry : resultMap.entrySet()) {
             String name = entry.getKey();
@@ -40,5 +47,13 @@ public class OutputView {
             System.out.printf(ROUND_RESULT_FORMAT, name, CAR_DISTANCE_PER_ROUND.repeat(position));
         }
         System.out.println();
+    }
+
+    private String alignNameOfWinners(List<String> winners) {
+        boolean isSingleWinner = (winners.size() <= 1);
+        if (isSingleWinner) {
+            return winners.getFirst();
+        }
+        return String.join(WINNER_DELIMITER, winners);
     }
 }

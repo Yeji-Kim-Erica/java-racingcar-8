@@ -26,4 +26,8 @@ public class RaceService {
     public List<RoundResult> getRaceResult(Race race) {
         return race.getRoundResults();
     }
+
+    public List<String> getWinner(Race race) {
+        return race.findWinner();
+    }
 }

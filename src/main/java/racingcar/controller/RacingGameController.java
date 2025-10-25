@@ -39,6 +39,9 @@ public class RacingGameController {
 
         List<RoundResult> raceResult = raceService.getRaceResult(race);
         outputView.printRaceResult(raceResult);
+
+        List<String> winners = raceService.getWinner(race);
+        outputView.printWinner(winners);
     }
 
 }
