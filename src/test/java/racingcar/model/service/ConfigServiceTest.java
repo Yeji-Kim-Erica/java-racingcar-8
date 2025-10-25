@@ -12,8 +12,6 @@ import racingcar.model.domain.Car;
 import racingcar.model.domain.ErrorMessage;
 import racingcar.model.domain.RaceConfiguration;
 
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 

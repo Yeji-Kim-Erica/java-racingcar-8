@@ -5,6 +5,7 @@ package racingcar.model.domain;
  */
 public class Car {
     private final String name;
+    private int position;
 
     private static final int MAXIMUM_NAME_LENGTH = 5;
 
@@ -16,6 +17,14 @@ public class Car {
 
     public String getName() {
         return name;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void move() {
+        position++;
     }
 
     private String refineName(String name) {
