@@ -36,15 +36,6 @@ public class Race {
         }
     }
 
-    private RoundResultDto proceedOneRound() {
-        RoundResultDto roundResultDto = new RoundResultDto();
-        for (Car car : cars) {
-            car.move(moveStrategy.isMoveable());
-            roundResultDto.add(car);
-        }
-        return roundResultDto;
-    }
-
     public List<String> findWinner() {
         List<String> winners = new ArrayList<>();
         int maxDistance = findMaxDistance();
@@ -55,6 +46,15 @@ public class Race {
             }
         }
         return winners;
+    }
+
+    private RoundResultDto proceedOneRound() {
+        RoundResultDto roundResultDto = new RoundResultDto();
+        for (Car car : cars) {
+            car.move(moveStrategy.isMoveable());
+            roundResultDto.add(car);
+        }
+        return roundResultDto;
     }
 
     private int findMaxDistance() {
