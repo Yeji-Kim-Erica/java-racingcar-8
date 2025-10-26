@@ -30,8 +30,8 @@ public class Car {
         return position;
     }
 
-    public void tryMove(MoveStrategy moveStrategy) {
-        if (moveStrategy.isMoveable()) {
+    public void move(boolean isMovingForward) {
+        if (isMovingForward) {
             position++;
         }
     }

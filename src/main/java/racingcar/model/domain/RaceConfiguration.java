@@ -13,6 +13,7 @@ public class RaceConfiguration {
     private final int rounds;
 
     private static final int MINIMUM_NUMBER_OF_CARS = 2;
+    private static final int MINIMUM_NUMBER_OF_ROUNDS = 1;
 
     public RaceConfiguration(List<Car> cars, int rounds) {
         validateCarList(cars);
@@ -50,9 +51,9 @@ public class RaceConfiguration {
     }
 
     private void validateRounds(int rounds) {
-        boolean isNegativeOrZero = (rounds <= 0);
-        if (isNegativeOrZero) {
-            throw new IllegalArgumentException(ErrorMessage.ROUNDS_NOT_POSITIVE.getMessage());
+        boolean isLessThanMinimum = (rounds < MINIMUM_NUMBER_OF_ROUNDS);
+        if (isLessThanMinimum) {
+            throw new IllegalArgumentException(ErrorMessage.ROUNDS_LESS_THAN_MINIMUM.getMessage());
         }
     }
 }

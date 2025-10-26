@@ -9,7 +9,7 @@ public enum ErrorMessage {
     DUPLICATED_CAR_NAME("자동차 이름은 중복될 수 없습니다."),
     CARS_LESS_THAN_MINIMUM("경기할 자동차의 수는 최소 2대 이상이어야 합니다."),
     ROUNDS_NOT_CONVERTIBLE_TO_NUMERIC("시도할 횟수는 숫자여야 합니다."),
-    ROUNDS_NOT_POSITIVE("시도할 횟수는 1 이상의 양수여야 합니다.");
+    ROUNDS_LESS_THAN_MINIMUM("시도할 횟수는 1 이상의 양수여야 합니다.");
 
     private final String message;
     private static final String ERROR_PREFIX = "[오류 발생] ";

@@ -96,9 +96,22 @@ public class ConfigServiceTest {
                     .hasMessageContaining(ErrorMessage.DUPLICATED_CAR_NAME.getMessage());
         }
 
+        @Test
+        @DisplayName("경기할 자동차의 수가 최소 기준 미달인 경우")
+        void numberOfCarLessThanMinimum() {
+            // given
+            String inValidInput = "pobi";
+
+            // when & then
+            assertThatThrownBy(() -> configService.createRaceConfiguration(inValidInput, VALID_ROUNDS))
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessageContaining(ErrorMessage.CARS_LESS_THAN_MINIMUM.getMessage());
+        }
+
         @ParameterizedTest
         @DisplayName("숫자로 변환할 수 없는 값을 시도 횟수로 입력받은 경우")
         @ValueSource(strings = {"", " ", "가", ".", " 3"})
+        @NullSource
         void roundsNotNumeric(String input) {
             assertThatThrownBy(() -> configService.createRaceConfiguration(VALID_CAR_NAMES, input))
                     .isInstanceOf(IllegalArgumentException.class)
@@ -106,12 +119,12 @@ public class ConfigServiceTest {
         }
 
         @ParameterizedTest
-        @DisplayName("시도 횟수가 양수가 아닌 경우")
+        @DisplayName("시도 횟수가 최소 기준 미달인 경우")
         @ValueSource(strings = {"0", "-1"})
-        void roundsNotPositive(String input) {
+        void roundsLessThanMinimum(String input) {
             assertThatThrownBy(() -> configService.createRaceConfiguration(VALID_CAR_NAMES, input))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining(ErrorMessage.ROUNDS_NOT_POSITIVE.getMessage());
+                    .hasMessageContaining(ErrorMessage.ROUNDS_LESS_THAN_MINIMUM.getMessage());
         }
     }
 }

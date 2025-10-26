@@ -5,16 +5,16 @@ import racingcar.model.domain.Car;
 import java.util.*;
 
 /**
- * 차수별 경기 진행 결과를 저장하는 클래스
+ * 차수별 경기 진행 결과를 전달하기 위한 데이터 전송 객체
  */
-public class RoundResult {
+public class RoundResultDto {
     private final Map<String, Integer> carPositions;
 
-    public RoundResult() {
+    public RoundResultDto() {
         carPositions = new LinkedHashMap<>();
     }
 
-    public RoundResult(List<Car> cars) {
+    public RoundResultDto(List<Car> cars) {
         carPositions = new LinkedHashMap<>();
         for (Car car : cars) {
             String name = car.getName();

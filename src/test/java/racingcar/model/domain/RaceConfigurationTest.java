@@ -35,18 +35,6 @@ public class RaceConfigurationTest {
     @DisplayName("예외 처리 테스트")
     class ExceptionTest {
         @Test
-        @DisplayName("경기할 자동차의 수가 최소 기준 미달인 경우")
-        void numberOfCarLessThanMinimum() {
-            // given
-            List<Car> cars = List.of(new Car("car1"));
-
-            // when & then
-            assertThatThrownBy(() -> new RaceConfiguration(cars, VALID_ROUNDS))
-                    .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining(ErrorMessage.CARS_LESS_THAN_MINIMUM.getMessage());
-        }
-        
-        @Test
         @DisplayName("자동차 이름이 중복되는 경우")
         void duplicatedCarName() {
             // given
@@ -58,13 +46,25 @@ public class RaceConfigurationTest {
                     .hasMessageContaining(ErrorMessage.DUPLICATED_CAR_NAME.getMessage());
         }
 
+        @Test
+        @DisplayName("경기할 자동차의 수가 최소 기준 미달인 경우")
+        void numberOfCarLessThanMinimum() {
+            // given
+            List<Car> cars = List.of(new Car("car1"));
+
+            // when & then
+            assertThatThrownBy(() -> new RaceConfiguration(cars, VALID_ROUNDS))
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessageContaining(ErrorMessage.CARS_LESS_THAN_MINIMUM.getMessage());
+        }
+
         @ParameterizedTest
-        @DisplayName("시도 횟수가 양수가 아닌 경우")
+        @DisplayName("시도 횟수가 최소 기준 미달인 경우")
         @ValueSource(ints = {0, -1})
-        void roundsNotPositive(int rounds) {
+        void roundsLessThanMinimum(int rounds) {
             assertThatThrownBy(() -> new RaceConfiguration(VALID_CARS, rounds))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining(ErrorMessage.ROUNDS_NOT_POSITIVE.getMessage());
+                    .hasMessageContaining(ErrorMessage.ROUNDS_LESS_THAN_MINIMUM.getMessage());
         }
     }
 

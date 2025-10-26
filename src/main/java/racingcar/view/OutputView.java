@@ -1,6 +1,6 @@
 package racingcar.view;
 
-import racingcar.model.dto.RoundResult;
+import racingcar.model.dto.RoundResultDto;
 
 import java.util.List;
 import java.util.Map;
@@ -26,11 +26,11 @@ public class OutputView {
         System.out.println(GAME_ROUND_INPUT_PROMPT);
     }
 
-    public void printRaceResult(List<RoundResult> raceResult) {
+    public void printRaceResult(List<RoundResultDto> raceResult) {
         System.out.println();
         System.out.println(RACE_RESULT_INITIAL_LINE);
-        for (RoundResult roundResult : raceResult) {
-            printRoundResult(roundResult);
+        for (RoundResultDto roundResultDto : raceResult) {
+            printRoundResult(roundResultDto);
         }
     }
 
@@ -39,8 +39,8 @@ public class OutputView {
         System.out.printf(WINNER_FORMAT, winner);
     }
 
-    private void printRoundResult(RoundResult roundResult) {
-        Map<String, Integer> resultMap = roundResult.getCarPositions();
+    private void printRoundResult(RoundResultDto roundResultDto) {
+        Map<String, Integer> resultMap = roundResultDto.getCarPositions();
         for (Entry<String, Integer> entry : resultMap.entrySet()) {
             String name = entry.getKey();
             int position = entry.getValue();

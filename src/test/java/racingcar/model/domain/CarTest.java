@@ -32,15 +32,9 @@ public class CarTest {
         void carMovesForward() {
             // given
             Car car = new Car("pobi");
-            MoveStrategy moveStrategy = new MoveStrategy() {
-                @Override
-                public boolean isMoveable() {
-                    return true;
-                }
-            };
 
             // when
-            car.tryMove(moveStrategy);
+            car.move(true);
 
             // then
             assertThat(car.getPosition()).isEqualTo(1);
@@ -50,6 +44,14 @@ public class CarTest {
     @Nested
     @DisplayName("예외 처리 테스트")
     class ExceptionTest {
+        @Test
+        @DisplayName("이름의 길이가 최대 기준을 초과한 경우")
+        void lengthOfNameExceedsMaximum() {
+            assertThatThrownBy(() -> new Car("abcdef"))
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessageContaining(ErrorMessage.CAR_NAME_LENGTH_OVER_MAXIMUM.getMessage());
+        }
+
         @ParameterizedTest
         @DisplayName("이름이 null이거나, 비어있거나, 공백 문자로만 이루어져 있는 경우")
         @NullSource
@@ -59,14 +61,6 @@ public class CarTest {
             assertThatThrownBy(() -> new Car(name))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessageContaining(ErrorMessage.CAR_NAME_NULL_OR_BLANK.getMessage());
-        }
-
-        @Test
-        @DisplayName("이름의 길이가 최대 기준을 초과한 경우")
-        void lengthOfNameExceedsMaximum() {
-            assertThatThrownBy(() -> new Car("abcdef"))
-                    .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining(ErrorMessage.CAR_NAME_LENGTH_OVER_MAXIMUM.getMessage());
         }
     }
 }

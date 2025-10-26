@@ -12,7 +12,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("RoundResult 클래스")
-public class RoundResultTest {
+public class RoundResultDtoTest {
     @Nested
     @DisplayName("성공 테스트")
     class SuccessTest {
@@ -20,11 +20,11 @@ public class RoundResultTest {
         @DisplayName("자동차 위치 저장")
         void saveCarPositionInRightOrder() {
             // when
-            RoundResult roundResult = new RoundResult();
-            roundResult.add(new Car("pobi", 2));
-            roundResult.add(new Car("woni", 4));
-            roundResult.add(new Car("jun", 1));
-            Map<String, Integer> result = roundResult.getCarPositions();
+            RoundResultDto roundResultDto = new RoundResultDto();
+            roundResultDto.add(new Car("pobi", 2));
+            roundResultDto.add(new Car("woni", 4));
+            roundResultDto.add(new Car("jun", 1));
+            Map<String, Integer> result = roundResultDto.getCarPositions();
 
             // then
             assertThat(result.keySet())
@@ -35,22 +35,16 @@ public class RoundResultTest {
         @DisplayName("자동차 위치가 저장된 시점의 위치로 유지됨")
         void carPositionNotChangeable() {
             // given
-            MoveStrategy moveStrategy = new MoveStrategy() {
-                @Override
-                public boolean isMoveable() {
-                    return true;
-                }
-            };
             Car car1 = new Car("pobi", 2);
             Car car2 = new Car("woni", 4);
             Car car3 = new Car("jun", 1);
             List<Car> cars = List.of(car1, car2, car3);
-            RoundResult roundResult = new RoundResult(cars);
-            Map<String, Integer> result = roundResult.getCarPositions();
+            RoundResultDto roundResultDto = new RoundResultDto(cars);
+            Map<String, Integer> result = roundResultDto.getCarPositions();
 
             // when
-            car1.tryMove(moveStrategy);
-            car2.tryMove(moveStrategy);
+            car1.move(true);
+            car2.move(true);
 
             // then
             assertThat(result.values())

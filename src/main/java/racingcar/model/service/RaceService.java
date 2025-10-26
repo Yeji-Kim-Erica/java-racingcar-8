@@ -1,9 +1,9 @@
 package racingcar.model.service;
 
 import racingcar.model.domain.*;
-import racingcar.model.dto.RoundResult;
+import racingcar.model.dto.RaceResultDto;
+import racingcar.model.dto.RoundResultDto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,18 +16,12 @@ public class RaceService {
         this.moveStrategy = moveStrategy;
     }
 
-    public Race proceedRace(RaceConfiguration configuration) {
+    public RaceResultDto runRace(RaceConfiguration configuration) {
         Race race = new Race(configuration, moveStrategy);
         race.proceed();
 
-        return race;
-    }
-
-    public List<RoundResult> getRaceResult(Race race) {
-        return race.getRoundResults();
-    }
-
-    public List<String> getWinner(Race race) {
-        return race.findWinner();
+        List<RoundResultDto> roundResultDtoList = race.getRoundResults();
+        List<String> winnerList = race.findWinner();
+        return new RaceResultDto(roundResultDtoList, winnerList);
     }
 }

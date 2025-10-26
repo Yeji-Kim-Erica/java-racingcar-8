@@ -1,6 +1,6 @@
 package racingcar.model.domain;
 
-import racingcar.model.dto.RoundResult;
+import racingcar.model.dto.RoundResultDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,37 +12,37 @@ public class Race {
     private final List<Car> cars;
     private final int finalRound;
     private final MoveStrategy moveStrategy;
-    private final List<RoundResult> roundResults;
+    private final List<RoundResultDto> roundResults;
 
     public Race(RaceConfiguration configuration, MoveStrategy moveStrategy) {
         this.cars = configuration.getCars();
         this.finalRound = configuration.getRounds();
         this.moveStrategy = moveStrategy;
-        roundResults = new ArrayList<>();
+        this.roundResults = new ArrayList<>();
     }
 
     public List<Car> getCars() {
         return new ArrayList<>(cars);
     }
 
-    public List<RoundResult> getRoundResults() {
+    public List<RoundResultDto> getRoundResults() {
         return new ArrayList<>(roundResults);
     }
 
     public void proceed() {
         for (int i = 1; i <= finalRound; i++) {
-            RoundResult roundResult = proceedOneRound();
-            roundResults.add(roundResult);
+            RoundResultDto roundResultDto = proceedOneRound();
+            roundResults.add(roundResultDto);
         }
     }
 
-    private RoundResult proceedOneRound() {
-        RoundResult roundResult = new RoundResult();
+    private RoundResultDto proceedOneRound() {
+        RoundResultDto roundResultDto = new RoundResultDto();
         for (Car car : cars) {
-            car.tryMove(moveStrategy);
-            roundResult.add(car);
+            car.move(moveStrategy.isMoveable());
+            roundResultDto.add(car);
         }
-        return roundResult;
+        return roundResultDto;
     }
 
     public List<String> findWinner() {

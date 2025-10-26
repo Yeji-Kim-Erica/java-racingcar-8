@@ -5,6 +5,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import racingcar.model.domain.*;
+import racingcar.model.dto.RaceResultDto;
+import racingcar.model.dto.RoundResultDto;
 
 import java.util.List;
 
@@ -39,16 +41,17 @@ public class RaceServiceTest {
             RaceConfiguration configuration = configService.createRaceConfiguration(validCarNames, validRounds);
 
             // when
-            Race race = raceService.proceedRace(configuration);
-            List<Car> cars = race.getCars();
+            RaceResultDto raceResult = raceService.runRace(configuration);
+            List<RoundResultDto> roundResultList = raceResult.getRoundResultList();
 
             // then
-            assertThat(cars)
-                    .extracting(Car::getName)
-                    .containsExactly("pobi", "woni");
-            assertThat(cars)
-                    .extracting(Car::getPosition)
-                    .containsExactly(3, 3);
+            assertThat(roundResultList).hasSize(3);
+
+            RoundResultDto lastRoundResult = roundResultList.getLast();
+            assertThat(lastRoundResult.getCarPositions()).containsEntry("pobi", 3);
+            assertThat(lastRoundResult.getCarPositions()).containsEntry("woni", 3);
+
+            assertThat(raceResult.getWinners()).containsExactlyInAnyOrder("pobi", "woni");
         }
     }
 }
