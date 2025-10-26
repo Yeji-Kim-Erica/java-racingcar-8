@@ -13,13 +13,13 @@ ___
       - null이거나, 빈 문자열이거나, 공백 문자로만 이루어진 경우
       - 중복되는 경우
     - **(예외 처리)** 자동차 수 유효성 검사: `IllegalArgumentException`
-      - 1대 이하인 경우
+      - 2대 미만인 경우
   - [x] **시도할 횟수 설정**
     - 입력 안내 문구 출력 (형식: `시도할 횟수는 몇 회인가요?`)
     - 시도 횟수 입력
     - **(예외 처리)** 시도 횟수 유효성 검사: `IllegalArgumentException`
       - 숫자로 변환 불가한 경우
-      - 0회 이하인 경우
+      - 1회 미만인 경우
 
 ### 2. 경기 실행
   - [x] **차수별로 자동차 이동**
@@ -39,22 +39,21 @@ ___
 ## 🗂️ 클래스 구조 (MVC 패턴 기반)
 
 ### Controller
-- `RacingGameController`: 전체 프로그램의 **흐름 제어** (경기 설정 → 경기 실행 → 경기 종료)
+- `RacingGameController`: 전체 프로그램의 **흐름 제어**
 
 ### View
-- `InputView`: 경기 설정 **입력**
-- `OutputView`: 입력 안내 문구, 차수별 경기 결과, 최종 우승자 **출력**
+- `InputView`: 사용자 **입력** 처리
+- `OutputView`: **출력** 처리 (안내 문구, 경기 결과, 우승자)
 
 ### Model
 - **Service**
-  - `ConfigService`: 경기 설정 흐름 조율
-  - `RaceService`: 경기 실행 흐름 조율
+  - `ConfigService`: **경기 설정 생성** 조율
+  - `RaceService`: **경기 실행** 조율
 - **Domain**
-  - `RaceConfiguration`: 유효성이 검증된 **경기 설정값** 보관
-  - `Car`: 자동차의 **상태** 정보, **자동차 이동**
-  - `Race`: 경기의 **상태** 정보, **경기 진행**, **우승자 선정**
-  - `MoveStrategy` (Interface): **자동차 전진 조건** 추상화 (TDD를 위함)
-  - `RandomMoveStrategy` (Implementation): 자동차 전진 조건의 **실제 구현체**
-  - `ErrorMessage`: 예외 메시지 관리
+  - `RaceConfiguration`: **경기 설정값** 보관 및 **유효성 검증**
+  - `Car`: **자동차** 상태(이름, 위치) 관리 및 **행위**(이동) 정의
+  - `Race`: **경기 진행** 로직 및 **상태**(라운드 결과) 관리
+  - `MoveStrategy`(Interface)/`RandomMoveStrategy`(Implementation): **이동 전략** 정의 및 구현
+  - `ErrorMessage`: **예외 메시지** 관리
 - **DTO**
-  - `RoundResult`: 자동차들의 **차수별 이동 결과 데이터 저장**
+  - `RaceResult`/`RoundResult`: 계층 간 **데이터 전달**
